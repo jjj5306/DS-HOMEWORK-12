@@ -121,7 +121,7 @@ int main()
 	return 1;
 }
 
-int initialize(int** a)
+int initialize(int** a) //int형 array의 주소가 파라메터로 들어온다
 {
 	int *temp = NULL;
 
@@ -130,16 +130,16 @@ int initialize(int** a)
 		temp = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE);
 		*a = temp;  /* 할당된 메모리의 주소를 복사 --> main에서 배열을 control 할수 있도록 함*/
 	} else
-		temp = *a;
+		temp = *a; //a가 생성되었으면 tmep가 a를 가리키게한다
 
 	/* 랜덤값을 배열의 값으로 저장 */
-	for(int i = 0; i < MAX_ARRAY_SIZE; i++)
-		temp[i] = rand() % MAX_ARRAY_SIZE;
+	for(int i = 0; i < MAX_ARRAY_SIZE; i++) 
+		temp[i] = rand() % MAX_ARRAY_SIZE; //0~MAX_ARRAY_SIZE-1까지의 숫자로 초기화한다
 
 	return 0;
 }
 
-int freeArray(int *a)
+int freeArray(int *a) //배열을 차례로 초기화해준다
 {
 	if(a != NULL)
 		free(a);
@@ -152,10 +152,10 @@ void printArray(int *a)
 		printf("nothing to print.\n");
 		return;
 	}
-	for(int i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(int i = 0; i < MAX_ARRAY_SIZE; i++) //배열의 index를 프린트한다
 		printf("a[%02d] ", i);
 	printf("\n");
-	for(int i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(int i = 0; i < MAX_ARRAY_SIZE; i++) //배열의 값을 프린트한다
 		printf("%5d ", a[i]);
 	printf("\n");
 }
@@ -172,20 +172,20 @@ int selectionSort(int *a)
 
 	printArray(a);
 
-	for (i = 0; i < MAX_ARRAY_SIZE; i++)
+	for (i = 0; i < MAX_ARRAY_SIZE; i++) //선택정렬 알고리즘, 가장 첫 번째 원소부터 가장 작은값으로 대치하는 식으로 진행된다
 	{
-		minindex = i;
+		minindex = i; 
 		min = a[i];
 		for(j = i+1; j < MAX_ARRAY_SIZE; j++)
 		{
-			if (min > a[j])
+			if (min > a[j]) //현재 까지의 min보다 작은 값이 나타나면 그 값과 바꾼다
 			{
 				min = a[j];
 				minindex = j;
 			}
 		}
-		a[minindex] = a[i];
-		a[i] = min;
+		a[minindex] = a[i]; 
+		a[i] = min; //i까지의 정렬이 완료되었다
 	}
 
 	printf("----------------------------------------------------------------\n");
@@ -202,15 +202,16 @@ int insertionSort(int *a)
 
 	printArray(a);
 
-	for(i = 1; i < MAX_ARRAY_SIZE; i++)
+	for(i = 1; i < MAX_ARRAY_SIZE; i++) 
+	//삽입정렬 알고리즘 배열의 첫 번째 요소부터 그 다음의 요소와 비교하여 삽입할 자리를 비워 끼워넣는다
 	{
-		t = a[i];
-		j = i;
-		while (a[j-1] > t && j > 0)
-		{
+		t = a[i]; //t는 i번째 값을 저장하고 있는다
+		j = i; 
+		while (a[j-1] > t && j > 0) 
+		{ //j-1부터 즉 i-1부터 a[i]가 삽입될 곳을 찾는다 
 			a[j] = a[j-1];
 			j--;
-		}
+		} //while문을 나왔다면 j의 위치에 a[i]에 있던 요소를 삽입하면 된다
 		a[j] = t;
 	}
 
@@ -229,11 +230,11 @@ int bubbleSort(int *a)
 
 	printArray(a);
 
-	for(i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(i = 0; i < MAX_ARRAY_SIZE; i++) //버블정렬 알고리즘, 가장 큰 값을 가장 뒤로 보내면서 정렬한다
 	{
 		for (j = 0; j < MAX_ARRAY_SIZE; j++)
 		{
-			if (a[j-1] > a[j])
+			if (a[j-1] > a[j]) //j전의 값이 더 크다면 j와 j-1을 바꾼다
 			{
 				t = a[j-1];
 				a[j-1] = a[j];
@@ -257,7 +258,7 @@ int shellSort(int *a)
 
 	printArray(a);
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2) //쉘 정렬 알고리즘
 	{
 		for (i = 0; i < h; i++)
 		{

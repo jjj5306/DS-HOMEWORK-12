@@ -47,6 +47,7 @@ int main()
 	int index = -1;
 
 	srand(time(NULL));
+	printf("2020039071 JoJunHwa");
 
 	do{
 		printf("----------------------------------------------------------------\n");

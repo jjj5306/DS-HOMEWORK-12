@@ -264,9 +264,10 @@ int shellSort(int *a)
 		{
 			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
 			{
-				v = a[j];
-				k = j;
-				while (k > h-1 && a[k-h] > v)
+				v = a[j]; //v는 a[j]를 임시 저장
+				k = j; //k도 j를 임시 저장
+				while (k > h-1 && a[k-h] > v) 
+				//i에서 h만큼 떨어진 값을 앞뒤로(+-h만큼) 비교하여 더 큰값을 뒤로 보낸다 h를 2로 나누면서 비교할 레코드를 줄이면서 진행한다 
 				{
 					a[k] = a[k-h];
 					k -= h;
@@ -283,30 +284,34 @@ int shellSort(int *a)
 
 int quickSort(int *a, int n)
 {
+	//처음 n값은 MAX_ARRAY_SIZE
 	int v, t;
 	int i, j;
 
-	if (n > 1)
+	if (n > 1) //순환구조의 무한루프 탈출 조건
 	{
-		v = a[n-1];
-		i = -1;
-		j = n - 1;
+		v = a[n-1]; //n-1을 pivot으로 사용
+		i = -1; //i가 left
+		j = n - 1; //j가 right
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v); //left에서 pivot보다 큰 값이 나오면 그 값을 i로 하고 중단 
+			while(a[--j] > v); //right에서 pivot보다 작은 값이 나오면 그 값을 j로하고 중단
 
-			if (i >= j) break;
-			t = a[i];
+			if (i >= j) break; //i >= j이면 quick sort의 한 단계 끝
+			//i와 j의 값을 스왑
+			t = a[i]; 
 			a[i] = a[j];
 			a[j] = t;
 		}
+		//반복문을 나오면 left와 i를 스왑
 		t = a[i];
 		a[i] = a[n-1];
 		a[n-1] = t;
-
+		//pivot을 i-1로 하는 QucickSort 진행
 		quickSort(a, i);
+		//pivot을 n-i-2로 하는 QuickSort 진행
 		quickSort(a+i+1, n-i-1);
 	}
 

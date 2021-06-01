@@ -232,7 +232,7 @@ int bubbleSort(int *a)
 
 	for(i = 0; i < MAX_ARRAY_SIZE; i++) //버블정렬 알고리즘, 가장 큰 값을 가장 뒤로 보내면서 정렬한다
 	{
-		for (j = 0; j < MAX_ARRAY_SIZE; j++)
+		for (j = 1; j < MAX_ARRAY_SIZE+1; j++)
 		{
 			if (a[j-1] > a[j]) //j전의 값이 더 크다면 j와 j-1을 바꾼다
 			{
@@ -320,7 +320,7 @@ int quickSort(int *a, int n)
 }
 
 int hashCode(int key) {
-   return key % MAX_HASH_TABLE_SIZE;
+   return key % MAX_HASH_TABLE_SIZE; //모들러 연산을 이용하여 해시코드를 구하는 함수
 }
 
 int hashing(int *a, int **ht)
@@ -335,7 +335,7 @@ int hashing(int *a, int **ht)
 		hashtable = *ht;	/* hash table이 NULL이 아닌경우, table 재활용, reset to -1 */
 	}
 
-	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
+	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++) //-1로 초기화
 		hashtable[i] = -1;
 
 	/*
@@ -353,14 +353,14 @@ int hashing(int *a, int **ht)
 		/*
 		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
 		*/
-		if (hashtable[hashcode] == -1)
+		if (hashtable[hashcode] == -1) //넣어야 하는 곳의 테이블이 비어있다면 바로 넣는다
 		{
 			hashtable[hashcode] = key;
 		} else 	{
 
 			index = hashcode;
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1) //비어있지 않다면 비어 있는 곳을 index를 하나씩 늘려가면서 찾아서 넣는다
 			{
 				index = (++index) % MAX_HASH_TABLE_SIZE;
 				/*
@@ -376,12 +376,12 @@ int hashing(int *a, int **ht)
 
 int search(int *ht, int key)
 {
-	int index = hashCode(key);
+	int index = hashCode(key); //key에 대한 index를 찾는다
 
 	if(ht[index] == key)
-		return index;
+		return index; //해시테이블의 index에 이미 key가 있다면 index 리턴
 
-	while(ht[++index] != key)
+	while(ht[++index] != key) //해시테이블에서 key가 있는 index를 찾아서 리턴
 	{
 		index = index % MAX_HASH_TABLE_SIZE;
 	}

@@ -305,7 +305,7 @@ int quickSort(int *a, int n)
 			a[i] = a[j];
 			a[j] = t;
 		}
-		//반복문을 나오면 left와 i를 스왑
+		//반복문을 나오면 pivot과 i를 스왑
 		t = a[i];
 		a[i] = a[n-1];
 		a[n-1] = t;
@@ -379,11 +379,13 @@ int search(int *ht, int key)
 	int index = hashCode(key); //key에 대한 index를 찾는다
 
 	if(ht[index] == key)
-		return index; //해시테이블의 index에 이미 key가 있다면 index 리턴
+		return index; //해시테이블의 index에 key가 있다면 index 리턴
 
-	while(ht[++index] != key) //해시테이블에서 key가 있는 index를 찾아서 리턴
+	while(ht[++index] != key) 
+	//해시테이블에서 index에 없다면 밀려서 저장되있으므로 key가 있는 index를 찾아서 리턴 0번째 index를 검사하지 않는 오류가 생겨서 수정했습니다
 	{
-		index = index % MAX_HASH_TABLE_SIZE;
+		if(index == MAX_HASH_TABLE_SIZE)
+			index = -1;		
 	}
 	return index;
 }
